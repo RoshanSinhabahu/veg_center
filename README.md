@@ -1,4 +1,4 @@
-# Vegcenter
+# VegCenter 🥕
 
 A local business management system for a vegetable collecting center. Allows the owner to manage farmers, record vegetable handovers, generate bills, track payments, and view daily/monthly summaries.
 
