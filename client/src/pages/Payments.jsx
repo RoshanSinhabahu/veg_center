@@ -43,13 +43,13 @@ function Payments() {
     .toFixed(2);
 
   const dateFilteredEntries = filterDate
-    ? pendingEntries.filter(e => {
-        const expected = e.expected_pay_date
-          ? new Date(e.expected_pay_date).toISOString().split('T')[0]
-          : null;
-        return expected === filterDate;
-      })
-    : [];
+  ? pendingEntries.filter(e => {
+      const expected = e.expected_pay_date
+        ? e.expected_pay_date.split('T')[0]
+        : null;
+      return expected === filterDate;
+    })
+  : [];
 
   const dateTotalPending = dateFilteredEntries
     .reduce((sum, e) => sum + Number(e.total_amount), 0)

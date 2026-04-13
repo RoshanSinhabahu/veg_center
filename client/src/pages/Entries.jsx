@@ -250,7 +250,7 @@ function Entries() {
           <div className="items-section">
             <div className="items-header">
               <h4>Produce Items</h4>
-              <button className="btn-add-item" onClick={addItem}>+ Add Row</button>
+              <button className="btn-add-item" onClick={addItem}>+ Add Produce</button>
             </div>
 
             <table className="items-table">
@@ -392,7 +392,7 @@ function Entries() {
                     {e.payment_status === 'paid'
                       ? <span className="status paid">Already Paid</span>
                       : e.expected_pay_date
-                        ? new Date(e.expected_pay_date).toLocaleDateString()
+                        ? new Date(e.expected_pay_date + 'T12:00:00').toLocaleDateString()
                         : '—'}
                   </td>
                   <td>

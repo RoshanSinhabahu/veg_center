@@ -143,11 +143,47 @@ function Farmers() {
             </div>
             <div className="form-group">
               <label>Bank Name</label>
-              <input
-                placeholder="e.g. Bank of Ceylon, People's Bank"
+              <select
                 value={form.bank_name}
                 onChange={e => setForm({ ...form, bank_name: e.target.value })}
-              />
+              >
+                <option value="">Select bank</option>
+                <optgroup label="State Banks">
+                  <option>Bank of Ceylon</option>
+                  <option>People's Bank</option>
+                  <option>National Savings Bank</option>
+                  <option>Regional Development Bank</option>
+                  <option>Lanka Puthra Development Bank</option>
+                </optgroup>
+                <optgroup label="Private Banks">
+                  <option>Commercial Bank of Ceylon</option>
+                  <option>Hatton National Bank</option>
+                  <option>Sampath Bank</option>
+                  <option>Seylan Bank</option>
+                  <option>Nations Trust Bank</option>
+                  <option>Pan Asia Banking Corporation</option>
+                  <option>Union Bank of Colombo</option>
+                  <option>Amana Bank</option>
+                  <option>Cargills Bank</option>
+                  <option>Sanasa Development Bank</option>
+                  <option>DFCC Bank</option>
+                  <option>NDB Bank</option>
+                </optgroup>
+                <optgroup label="Foreign Banks">
+                  <option>HSBC Sri Lanka</option>
+                  <option>Standard Chartered</option>
+                  <option>Citibank Sri Lanka</option>
+                  <option>Deutsche Bank</option>
+                  <option>MCB Bank</option>
+                  <option>Habib Bank</option>
+                  <option>Indian Bank</option>
+                  <option>Indian Overseas Bank</option>
+                  <option>State Bank of India</option>
+                </optgroup>
+                <optgroup label="Other">
+                  <option>Other</option>
+                </optgroup>
+              </select>
             </div>
           </div>
           <div className="form-actions">

@@ -7,16 +7,17 @@ const navItems = [
   { path: '/payments', label: 'Payments' },
   { path: '/produce',  label: 'Produce' },
   { path: '/reports',  label: 'Reports' },
-  { path: '/settings', label: 'Settings' },
+  { path: '/settings',  label: 'Settings' },
 ];
 
 function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h2>VegCenter</h2>
+        <img className="logo" src='logo.png'></img>
         <p>Management System</p>
       </div>
+      <div className="sidebar-user">Welcome Back!</div>
       <nav className="sidebar-nav">
         {navItems.map(item => (
           <NavLink
