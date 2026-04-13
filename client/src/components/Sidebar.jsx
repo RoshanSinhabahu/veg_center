@@ -7,6 +7,7 @@ const navItems = [
   { path: '/payments', label: 'Payments' },
   { path: '/produce',  label: 'Produce' },
   { path: '/reports',  label: 'Reports' },
+  { path: '/settings', label: 'Settings' },
 ];
 
 function Sidebar() {

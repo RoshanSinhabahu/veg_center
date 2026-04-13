@@ -3,10 +3,11 @@ import axios from 'axios';
 import './Farmers.css';
 
 const emptyForm = {
-  name: '',
-  address: '',
+  name:      '',
+  address:   '',
   phone_num: '',
-  acc_num: '',
+  acc_num:   '',
+  bank_name: '',
 };
 
 function Farmers() {
@@ -61,6 +62,7 @@ function Farmers() {
       address:   farmer.address,
       phone_num: farmer.phone_num,
       acc_num:   farmer.acc_num,
+      bank_name: farmer.bank_name,
     });
     setEditId(farmer.far_id);
     setShowForm(true);
@@ -139,6 +141,14 @@ function Farmers() {
                 onChange={e => setForm({ ...form, acc_num: e.target.value })}
               />
             </div>
+            <div className="form-group">
+              <label>Bank Name</label>
+              <input
+                placeholder="e.g. Bank of Ceylon, People's Bank"
+                value={form.bank_name}
+                onChange={e => setForm({ ...form, bank_name: e.target.value })}
+              />
+            </div>
           </div>
           <div className="form-actions">
             <button className="btn-secondary" onClick={handleCancel}>
@@ -173,6 +183,7 @@ function Farmers() {
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Account No</th>
+                <th>Bank</th>
                 <th>Registered</th>
                 <th>Actions</th>
               </tr>
@@ -185,6 +196,7 @@ function Farmers() {
                   <td>{f.phone_num || '—'}</td>
                   <td>{f.address || '—'}</td>
                   <td>{f.acc_num || '—'}</td>
+                  <td>{f.bank_name || '—'}</td>
                   <td>{new Date(f.reg_at).toLocaleDateString()}</td>
                   <td>
                     <button

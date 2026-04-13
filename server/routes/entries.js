@@ -88,4 +88,14 @@ router.patch('/:id/status', async (req, res) => {
   }
 });
 
+// Delete entry
+router.delete('/:id', async (req, res) => {
+  try {
+    await db.query('DELETE FROM Entries WHERE entry_id = ?', [req.params.id]);
+    res.json({ message: 'Entry deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

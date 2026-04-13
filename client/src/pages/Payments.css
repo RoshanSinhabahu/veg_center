@@ -1,0 +1,286 @@
+.payments-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.farmer-list-panel {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 16px 18px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #f7f9fc;
+}
+
+.panel-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a3c5e;
+  margin-bottom: 10px;
+}
+
+.farmer-search {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+}
+
+.farmer-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.farmer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.farmer-row:hover {
+  background: #f7f9fc;
+}
+
+.farmer-row.selected {
+  background: #e8f0fe;
+  border-left: 3px solid #1a3c5e;
+}
+
+.farmer-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.farmer-row-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.farmer-row-phone {
+  font-size: 12px;
+  color: #888;
+}
+
+.farmer-row-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.pending-badge {
+  font-size: 11px;
+  background: #fff3e0;
+  color: #e65100;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.pending-amount {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e65100;
+}
+
+.all-clear {
+  font-size: 12px;
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.details-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.detail-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #f7f9fc;
+}
+
+.detail-card-header h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a3c5e;
+  margin-bottom: 3px;
+}
+
+.detail-card-header p {
+  font-size: 12px;
+  color: #888;
+}
+
+.detail-placeholder {
+  background: white;
+  border-radius: 10px;
+  padding: 60px 20px;
+  text-align: center;
+  color: #aaa;
+  font-size: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.payments-table th {
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  background: #fafbfc;
+}
+
+.payments-table td {
+  padding: 11px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid #f5f5f5;
+  color: #333;
+}
+
+.payments-table tr:last-child td {
+  border-bottom: none;
+}
+
+.payments-table tr:hover td {
+  background: #fafbfc;
+}
+
+.btn-mark-paid {
+  background: #e6f4ea;
+  color: #2e7d32;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+.btn-mark-paid:hover {
+  background: #c8e6c9;
+}
+
+.btn-pay-all {
+  background: #1a3c5e;
+  color: white;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.btn-pay-all:hover {
+  background: #14304d;
+}
+
+.date-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.date-filter-row input {
+  width: auto;
+  font-size: 14px;
+}
+
+.date-summary {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.date-summary-item {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-right: 1px solid #f0f0f0;
+}
+
+.date-summary-item:last-child {
+  border-right: none;
+}
+
+.date-summary-item span {
+  font-size: 12px;
+  color: #888;
+}
+
+.date-summary-item strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a3c5e;
+}
+
+.big-amount {
+  font-size: 20px !important;
+  color: #e65100 !important;
+}
+
+.empty-small {
+  padding: 30px;
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.success-msg {
+  background: #e6f4ea;
+  color: #2e7d32;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.farmer-row-bank {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 1px;
+}
+
+.bank-info {
+  display: flex;
+  gap: 16px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #1a3c5e;
+  background: #e8f0fe;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+}

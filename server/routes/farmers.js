@@ -31,10 +31,10 @@ router.get('/:id', async (req, res) => {
 // Add new farmer
 router.post('/', async (req, res) => {
   try {
-    const { name, address, phone_num, acc_num } = req.body;
+    const { name, address, phone_num, acc_num, bank_name } = req.body;
     const [result] = await db.query(
-      'INSERT INTO Farmer (name, address, phone_num, acc_num) VALUES (?, ?, ?, ?)',
-      [name, address, phone_num, acc_num]
+      'INSERT INTO Farmer (name, address, phone_num, acc_num, bank_name) VALUES (?, ?, ?, ?, ?)',
+      [name, address, phone_num, acc_num, bank_name]
     );
     res.status(201).json({ message: 'Farmer added', far_id: result.insertId });
   } catch (err) {
@@ -45,10 +45,10 @@ router.post('/', async (req, res) => {
 // Update farmer
 router.put('/:id', async (req, res) => {
   try {
-    const { name, address, phone_num, acc_num } = req.body;
+    const { name, address, phone_num, acc_num, bank_name } = req.body;
     await db.query(
-      'UPDATE Farmer SET name=?, address=?, phone_num=?, acc_num=? WHERE far_id=?',
-      [name, address, phone_num, acc_num, req.params.id]
+      'UPDATE Farmer SET name=?, address=?, phone_num=?, acc_num=?, bank_name=? WHERE far_id=?',
+      [name, address, phone_num, acc_num, bank_name, req.params.id]
     );
     res.json({ message: 'Farmer updated' });
   } catch (err) {
