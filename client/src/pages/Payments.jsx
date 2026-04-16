@@ -45,7 +45,7 @@ function Payments() {
   const dateFilteredEntries = filterDate
   ? pendingEntries.filter(e => {
       const expected = e.expected_pay_date
-        ? e.expected_pay_date.split('T')[0]
+        ? new Date(e.expected_pay_date).toLocaleDateString('en-CA')
         : null;
       return expected === filterDate;
     })

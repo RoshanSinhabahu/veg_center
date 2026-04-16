@@ -62,6 +62,9 @@ router.delete('/:id', async (req, res) => {
     await db.query('DELETE FROM Farmer WHERE far_id = ?', [req.params.id]);
     res.json({ message: 'Farmer deleted' });
   } catch (err) {
+    if (err.code === 'ER_ROW_IS_REFERENCED_2') {
+      return res.status(400).json({ error: 'Cannot delete farmer because they have existing entries attached to them.' });
+    }
     res.status(500).json({ error: err.message });
   }
 });

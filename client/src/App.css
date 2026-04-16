@@ -5,6 +5,16 @@
 
 .main-content {
   flex: 1;
+  min-width: 0;       /* prevents flex child from overflowing */
   padding: 30px;
   overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+  .main-content {
+    padding: 16px;
+  }
 }

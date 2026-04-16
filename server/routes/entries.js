@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
       SELECT e.*, f.name AS farmer_name
       FROM Entries e
       JOIN Farmer f ON e.far_id = f.far_id
-      ORDER BY e.date DESC
+      ORDER BY e.created_at DESC
     `);
     res.json(rows);
   } catch (err) {

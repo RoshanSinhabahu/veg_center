@@ -363,7 +363,8 @@ function Entries() {
               <tr>
                 <th>#</th>
                 <th>Farmer</th>
-                <th>Date</th>
+                <th>Entry Date</th>
+                <th>Time</th>
                 <th>Total (Rs.)</th>
                 <th>Method</th>
                 <th>Status</th>
@@ -372,39 +373,43 @@ function Entries() {
               </tr>
             </thead>
             <tbody>
-              {entries.length === 0 ? (
-                <tr>
-                  <td colSpan="8" className="empty">No entries yet</td>
-                </tr>
-              ) : entries.map((e, i) => (
-                <tr key={e.entry_id}>
-                  <td>{i + 1}</td>
-                  <td>{e.farmer_name}</td>
-                  <td>{new Date(e.date).toLocaleDateString()}</td>
-                  <td>Rs. {e.total_amount}</td>
-                  <td>{e.payment_method}</td>
-                  <td>
-                    <span className={`status ${e.payment_status}`}>
-                      {e.payment_status?.toUpperCase()}
-                    </span>
-                  </td>
-                  <td>
-                    {e.payment_status === 'paid'
-                      ? <span className="status paid">Already Paid</span>
-                      : e.expected_pay_date
-                        ? new Date(e.expected_pay_date + 'T12:00:00').toLocaleDateString()
-                        : '—'}
-                  </td>
-                  <td>
-                    <button
-                      className="btn-delete"
-                      onClick={() => handleDeleteClick(e)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {entries.map((e, i) => (
+              <tr key={e.entry_id}>
+                <td>{i + 1}</td>
+                <td>{e.farmer_name}</td>
+                <td>{new Date(e.date).toLocaleDateString()}</td>
+                <td>
+                  {e.created_at
+                    ? new Date(e.created_at).toLocaleTimeString([], {
+                        hour:   '2-digit',
+                        minute: '2-digit',
+                      })
+                    : '—'}
+                </td>
+                <td>Rs. {e.total_amount}</td>
+                <td>{e.payment_method}</td>
+                <td>
+                  <span className={`status ${e.payment_status}`}>
+                    {e.payment_status?.toUpperCase()}
+                  </span>
+                </td>
+                <td>
+                  {e.payment_status === 'paid'
+                    ? <span className="status paid">Already Paid</span>
+                    : e.expected_pay_date
+                      ? new Date(e.expected_pay_date).toLocaleDateString()
+                      : '—'}
+                </td>
+                <td>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDeleteClick(e)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
             </tbody>
           </table>
         </div>

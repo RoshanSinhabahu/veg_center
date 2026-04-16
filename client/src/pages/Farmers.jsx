@@ -74,8 +74,12 @@ function Farmers() {
     try {
       await axios.delete(`/api/farmers/${id}`);
       fetchFarmers();
-    } catch {
-      setError('Failed to delete farmer');
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        setError('Failed to delete farmer');
+      }
     }
   };
 
