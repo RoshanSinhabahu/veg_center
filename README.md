@@ -11,3 +11,4 @@ A local business management system for a vegetable collecting center. Allows the
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.
+All rights reserved. © 2025 Roshan Sinhabahu
