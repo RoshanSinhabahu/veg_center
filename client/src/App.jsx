@@ -7,6 +7,7 @@ import Settings from './pages/Settings';
 import Payments from './pages/Payments';
 import Produce from './pages/Produce';
 import Reports from './pages/Reports'
+import Stock from './pages/Stock';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/produce" element={<Produce />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/stock" element={<Stock />} />
           </Routes>
         </main>
       </div>

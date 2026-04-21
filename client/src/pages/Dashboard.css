@@ -1,5 +1,4 @@
 /* ── Dashboard page ──────────────────────────────────────────────────────────── */
-
 .dash-page {
   height: 90vh;
   display: flex;
@@ -294,3 +293,9 @@
     font-size: 18px;
   }
 }
+
+.dash-page .page-header .welcom-text {
+  font-size: 38px;
+  font-weight: 100;
+}
+

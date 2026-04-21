@@ -77,7 +77,7 @@ export default function Dashboard() {
       {/* header */}
       <div className="page-header">
         <div>
-          <h1>Dashboard</h1>
+          <h1 className='welcom-text'>Welcome back!</h1>
           <p>
             {new Date().toLocaleDateString('en-IN', {
               weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',

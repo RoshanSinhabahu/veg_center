@@ -221,3 +221,32 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+.action-btns {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btn-mark-paid {
+  background: #e6f4ea;
+  color: #2e7d32;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.btn-mark-paid:hover {
+  background: #c8e6c9;
+}
+
+.paid-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2e7d32;
+  padding: 5px 10px;
+  background: #e6f4ea;
+  border-radius: 6px;
+}

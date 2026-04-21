@@ -1,12 +1,14 @@
 .sidebar {
   width: 240px;
-  min-height: 100vh;
+  min-height: 90vh;
   background-color: #1a3c5e;
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
   flex-shrink: 0;
+  border-radius: 25px;
+  margin: 15px;
 }
 
 @media (max-width: 768px) {
@@ -41,11 +43,12 @@
     border-left: none;
     border-bottom: 3px solid transparent;
     border-radius: 6px;
+    border-radius: 150px;
+    margin: 2px 5px 0 5px;
   }
 
   .nav-item.active {
     border-left: none;
-    border-bottom: 3px solid #4a90d9;
   }
 
   .nav-item-settings {
@@ -89,6 +92,8 @@
   font-size: 14px;
   transition: all 0.2s;
   border-left: 3px solid transparent;
+  border-radius: 150px;
+  margin: 2px 5px 0 5px;
 }
 
 .nav-item:hover {
@@ -99,7 +104,6 @@
 .nav-item.active {
   background-color: rgba(255, 255, 255, 0.12);
   color: #ffffff;
-  border-left: 3px solid #4a90d9;
   font-weight: 500;
 }
 

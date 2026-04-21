@@ -12,7 +12,7 @@ const DAY_NAMES = [
 ];
 
 function Settings() {
-  const [deferLimit,   setDeferLimit]   = useState(5);
+  const [deferLimit,   setDeferLimit]   = useState(5000);
   const [paymentDays,  setPaymentDays]  = useState([3, 6]);
   const [saved,        setSaved]        = useState(false);
   const [error,        setError]        = useState('');
@@ -51,7 +51,7 @@ function Settings() {
   const handleReset = () => {
     setDeferLimit(5);
     setPaymentDays([3, 6]);
-    localStorage.setItem('deferLimit',  5);
+    localStorage.setItem('deferLimit',  5000);
     localStorage.setItem('paymentDays', JSON.stringify([3, 6]));
     setError('');
     setSaved(true);
@@ -81,25 +81,25 @@ function Settings() {
             </p>
           </div>
           <div className="settings-card-body">
-            <label>Quantity limit (kg)</label>
+            <label>Amount limit (Rs.)</label>
             <div className="limit-input-wrap">
+              <span className="price-prefix">Rs.</span>
               <input
                 type="number"
                 min="1"
-                step="0.5"
+                step="100"
                 value={deferLimit}
                 onChange={e => setDeferLimit(e.target.value)}
               />
-              <span className="unit">kg</span>
             </div>
             <div className="threshold-hint">
               <div className="hint-row">
                 <span className="status paid">PAID</span>
-                <span>Total quantity ≤ {deferLimit} kg → paid instantly</span>
+                <span>Total amount ≤ Rs. {deferLimit} → paid instantly at handover</span>
               </div>
               <div className="hint-row">
                 <span className="status pending">PENDING</span>
-                <span>Total quantity &gt; {deferLimit} kg → collect on payment day</span>
+                <span>Total amount &gt; Rs. {deferLimit} → collect on payment day</span>
               </div>
             </div>
           </div>

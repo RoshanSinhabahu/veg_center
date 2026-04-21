@@ -5,9 +5,10 @@ const navItems = [
   { path: '/',         label: 'Dashboard' },
   { path: '/entries',  label: 'New Entry' },
   { path: '/payments', label: 'Payments' },
-  { path: '/produce',  label: 'Produce' },
+  { path: '/stock',    label: 'Stock'    },
+  { path: '/reports',  label: 'Entry Reports' },
   { path: '/farmers',  label: 'Farmers' },
-  { path: '/reports',  label: 'Reports' },
+  { path: '/produce',  label: 'Vegetables/Fruits' },
 ];
 
 function Sidebar() {
@@ -17,7 +18,6 @@ function Sidebar() {
         <img className="logo" src='logo.png'></img>
         <p>Management System</p>
       </div>
-      <div className="sidebar-user">Welcome Back!</div>
       <nav className="sidebar-nav">
         {navItems.map(item => (
           <NavLink

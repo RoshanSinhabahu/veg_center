@@ -10,23 +10,23 @@ import {
 import './Entries.css';
 
 const emptyItem = {
-  produce_id: '',
-  produce_name: '',
-  quantity: '',
+  produce_id:     '',
+  produce_name:   '',
+  quantity:       '',
   price_per_unit: '',
-  amount: '',
+  amount:         '',
 };
 
 function Entries() {
-  const [farmers,       setFarmers]       = useState([]);
-  const [produce,       setProduce]       = useState([]);
-  const [entries,       setEntries]       = useState([]);
-  const [showForm,      setShowForm]      = useState(false);
-  const [bill,          setBill]          = useState(null);
-  const [error,         setError]         = useState('');
-  const [successMsg,    setSuccessMsg]    = useState('');
-  const [deleteTarget,  setDeleteTarget]  = useState(null);
-  const [confirmStep,   setConfirmStep]   = useState(1);
+  const [farmers,      setFarmers]      = useState([]);
+  const [produce,      setProduce]      = useState([]);
+  const [entries,      setEntries]      = useState([]);
+  const [showForm,     setShowForm]     = useState(false);
+  const [bill,         setBill]         = useState(null);
+  const [error,        setError]        = useState('');
+  const [successMsg,   setSuccessMsg]   = useState('');
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [confirmStep,  setConfirmStep]  = useState(1);
 
   const [form, setForm] = useState({
     far_id:            '',
@@ -73,12 +73,15 @@ function Entries() {
       }
     }
 
-    if (field === 'quantity') {
-      updated[index].amount = calcItemAmount(value, updated[index].price_per_unit);
+    if (field === 'quantity' || field === 'price_per_unit') {
+      updated[index].amount = calcItemAmount(
+        updated[index].quantity,
+        updated[index].price_per_unit
+      );
     }
 
     const total    = calcTotal(updated);
-    const deferred = shouldDefer(updated);
+    const deferred = shouldDefer(total);
 
     setForm(prev => ({
       ...prev,
@@ -99,10 +102,11 @@ function Entries() {
   const removeItem = (index) => {
     if (form.items.length === 1) return;
     const updated = form.items.filter((_, i) => i !== index);
+    const total   = calcTotal(updated);
     setForm(prev => ({
       ...prev,
       items:        updated,
-      total_amount: calcTotal(updated),
+      total_amount: total,
     }));
   };
 
@@ -116,7 +120,7 @@ function Entries() {
       return;
     }
     try {
-      const res = await axios.post('/api/entries', form);
+      const res    = await axios.post('/api/entries', form);
       const farmer = farmers.find(f => f.far_id === Number(form.far_id));
       setBill({
         entry:  { ...form, entry_id: res.data.entry_id },
@@ -146,28 +150,40 @@ function Entries() {
     setError('');
   };
 
+  const handleMarkPaid = async (entryId) => {
+    try {
+      await axios.patch(`/api/entries/${entryId}/status`, {
+        payment_status: 'paid',
+        paid_time:      new Date().toISOString(),
+      });
+      setSuccessMsg('Payment marked as paid!');
+      setTimeout(() => setSuccessMsg(''), 3000);
+      fetchAll();
+    } catch {
+      setError('Failed to update payment');
+    }
+  };
+
   const handleDeleteClick = (entry) => {
     setDeleteTarget(entry);
     setConfirmStep(1);
   };
 
-  const handleConfirmStep1 = () => {
-    setConfirmStep(2);
-  };
+  const handleConfirmStep1 = () => setConfirmStep(2);
 
   const handleConfirmStep2 = async () => {
     try {
-        await axios.delete(`/api/entries/${deleteTarget.entry_id}`);
-        setDeleteTarget(null);
-        setConfirmStep(1);
-        setSuccessMsg('Entry deleted successfully');
-        setTimeout(() => setSuccessMsg(''), 3000);
-        fetchAll();
+      await axios.delete(`/api/entries/${deleteTarget.entry_id}`);
+      setDeleteTarget(null);
+      setConfirmStep(1);
+      setSuccessMsg('Entry deleted successfully');
+      setTimeout(() => setSuccessMsg(''), 3000);
+      fetchAll();
     } catch (err) {
-        setDeleteTarget(null);
-        setError(err.response?.data?.error || err.message || 'Failed to delete entry');
+      setDeleteTarget(null);
+      setError(err.response?.data?.error || err.message || 'Failed to delete entry');
     }
-    };
+  };
 
   const handleCancelDelete = () => {
     setDeleteTarget(null);
@@ -250,7 +266,7 @@ function Entries() {
           <div className="items-section">
             <div className="items-header">
               <h4>Produce Items</h4>
-              <button className="btn-add-item" onClick={addItem}>+ Add Produce</button>
+              <button className="btn-add-item" onClick={addItem}>+ Add Row</button>
             </div>
 
             <table className="items-table">
@@ -292,6 +308,9 @@ function Entries() {
                     <td>
                       <input
                         type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
                         value={item.price_per_unit}
                         onChange={e => handleItemChange(i, 'price_per_unit', e.target.value)}
                       />
@@ -373,43 +392,60 @@ function Entries() {
               </tr>
             </thead>
             <tbody>
-              {entries.map((e, i) => (
-              <tr key={e.entry_id}>
-                <td>{i + 1}</td>
-                <td>{e.farmer_name}</td>
-                <td>{new Date(e.date).toLocaleDateString()}</td>
-                <td>
-                  {e.created_at
-                    ? new Date(e.created_at).toLocaleTimeString([], {
-                        hour:   '2-digit',
-                        minute: '2-digit',
-                      })
-                    : '—'}
-                </td>
-                <td>Rs. {e.total_amount}</td>
-                <td>{e.payment_method}</td>
-                <td>
-                  <span className={`status ${e.payment_status}`}>
-                    {e.payment_status?.toUpperCase()}
-                  </span>
-                </td>
-                <td>
-                  {e.payment_status === 'paid'
-                    ? <span className="status paid">Already Paid</span>
-                    : e.expected_pay_date
-                      ? new Date(e.expected_pay_date).toLocaleDateString()
+              {entries.length === 0 ? (
+                <tr>
+                  <td colSpan="9" className="empty">No entries yet</td>
+                </tr>
+              ) : entries.map((e, i) => (
+                <tr key={e.entry_id}>
+                  <td>{i + 1}</td>
+                  <td>{e.farmer_name}</td>
+                  <td>{new Date(e.date).toLocaleDateString()}</td>
+                  <td>
+                    {e.created_at
+                      ? new Date(e.created_at).toLocaleTimeString([], {
+                          hour:   '2-digit',
+                          minute: '2-digit',
+                        })
                       : '—'}
-                </td>
-                <td>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleDeleteClick(e)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td>Rs. {Number(e.total_amount).toFixed(2)}</td>
+                  <td>{e.payment_method}</td>
+                  <td>
+                    <span className={`status ${e.payment_status}`}>
+                      {e.payment_status?.toUpperCase()}
+                    </span>
+                  </td>
+                  <td>
+                    {e.payment_status === 'paid'
+                      ? <span className="status paid">Already Paid</span>
+                      : e.expected_pay_date
+                        ? new Date(e.expected_pay_date).toLocaleDateString()
+                        : '—'}
+                  </td>
+                  <td>
+                    <div className="action-btns">
+                      {e.payment_status === 'pending' && (
+                        <button
+                          className="btn-mark-paid"
+                          onClick={() => handleMarkPaid(e.entry_id)}
+                        >
+                          Mark Paid
+                        </button>
+                      )}
+                      {e.payment_status === 'paid' && (
+                        <span className="paid-label">Paid</span>
+                      )}
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDeleteClick(e)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -428,7 +464,7 @@ function Entries() {
                   You are about to delete the entry for
                   <strong> {deleteTarget.farmer_name}</strong> on
                   <strong> {new Date(deleteTarget.date).toLocaleDateString()}</strong> worth
-                  <strong> Rs. {deleteTarget.total_amount}</strong>.
+                  <strong> Rs. {Number(deleteTarget.total_amount).toFixed(2)}</strong>.
                 </p>
                 <p className="modal-sub">
                   This will also delete all produce items in this entry.

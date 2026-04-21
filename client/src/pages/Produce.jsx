@@ -110,7 +110,7 @@ function Produce() {
     <div className="page">
       <div className="page-header">
         <div>
-          <h1>Produce</h1>
+          <h1>Vegetables / Fruits</h1>
           <p>{produceList.length} produce types registered</p>
         </div>
         <button className="btn-primary" onClick={() => setShowForm(true)}>

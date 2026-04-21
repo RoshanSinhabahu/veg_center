@@ -1,13 +1,13 @@
 export function getSettings() {
   return {
-    deferLimit: Number(localStorage.getItem('deferLimit') || 5000),
+    deferLimit:  Number(localStorage.getItem('deferLimit') || 5000),
     paymentDays: JSON.parse(localStorage.getItem('paymentDays') || '[3, 6]'),
   };
 }
 
 export function getNextPaymentDay() {
   const { paymentDays } = getSettings();
-  const today = new Date();
+  const today   = new Date();
   const todayDay = today.getDay();
 
   let minDays = 7;
@@ -21,10 +21,10 @@ export function getNextPaymentDay() {
   return next.toISOString().split('T')[0];
 }
 
-export function shouldDefer(items) {
+// Now checks total AMOUNT (Rs.) not quantity (kg)
+export function shouldDefer(totalAmount) {
   const { deferLimit } = getSettings();
-  const totalQty = items.reduce((sum, item) => sum + Number(item.quantity), 0);
-  return totalQty > deferLimit;
+  return Number(totalAmount) > deferLimit;
 }
 
 export function calcItemAmount(quantity, price) {

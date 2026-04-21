@@ -8,6 +8,7 @@ const produceRoutes = require('./routes/produce');
 const entryRoutes = require('./routes/entries');
 const paymentRoutes = require('./routes/payments');
 const reportRoutes = require('./routes/reports');
+const stockRoutes = require('./routes/stock');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use('/api/produce', produceRoutes);
 app.use('/api/entries', entryRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/stock', stockRoutes);
 
 app.get('/', async (req, res) => {
   try {
